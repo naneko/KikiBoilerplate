@@ -2,7 +2,7 @@
 Contains all configuration for bot.
 
 All settings should be loaded from enviroment variables.
-For development, create a .env file in the package and make sure python-dotenv is installed.
+For development, create a .env file in the repository root.
 """
 
 import logging
@@ -51,4 +51,4 @@ if DATABASE_URI is None:
     log.warning(
         "Database URI was not set. Set it to 'database.db' in the directory root of the bot."
     )
-    DATABASE_URI = "../database.db"
+    DATABASE_URI = "database.db"

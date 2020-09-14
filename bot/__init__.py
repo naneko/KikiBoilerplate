@@ -1,2 +1,2 @@
 import bot.bot
-import bot.settings
+import bot.extensions

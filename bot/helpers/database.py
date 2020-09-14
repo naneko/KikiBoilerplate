@@ -11,6 +11,9 @@ from bot.settings import DATABASE_URI
 log = logging.getLogger(__name__)
 
 try:
+    """
+    Import conn and/or c to execute database commands.
+    """
     conn = sqlite3.connect(DATABASE_URI)
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
@@ -21,7 +24,10 @@ except sqlite3.OperationalError:
 
 def init_db():
     """Initialize database tables migrations directory schema"""
-    version = conn.execute("SELECT * FROM meta").fetchone()
+    try:
+        version = conn.execute("SELECT * FROM meta").fetchone()
+    except sqlite3.OperationalError:
+        version = None
     if version is not None:
         version = version["version"]
     else:

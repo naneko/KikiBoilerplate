@@ -18,7 +18,6 @@ if DEBUG is True:
     log.info("=== DEBUG MODE ENABLED ===")
     # Add debug-specific code/extensions here
 
-# Configure additional extensions in settings.py
 for ext in INIT_EXTENSIONS:
     log.debug(f"Loading {ext}...")
     bot.load_extension(ext)
@@ -32,7 +31,7 @@ init_db()
 @bot.event
 async def on_ready():
     """
-    Execute on bot initialization with the Discord API.
+    Execute on bot initialization with the Discord API. This may happen more than once.
     """
     log.info(f"Started as {bot.user}")
 
@@ -63,7 +62,11 @@ async def reload(ctx: commands.context):
 
             try:
                 bot.reload_extension(extension)
-            except (ExtensionNotLoaded, ExtensionNotFound, ExtensionFailed,) as e:
+            except (
+                    ExtensionNotLoaded,
+                    ExtensionNotFound,
+                    ExtensionFailed,
+            ) as e:
                 log.exception(e)
                 await ctx.send(
                     embed=discord.Embed(
